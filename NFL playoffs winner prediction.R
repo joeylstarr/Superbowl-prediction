@@ -56,10 +56,10 @@ print(paste(winner, "win by", round(margin,0) / 10 , "points"))
 #do the same for the NFC
 if (NFC > 0) { winner <- "Commanders" ; margin <- NFC} else if (NFC < 0) { winner <- "Eagles" ; margin <- abs(NFC)}
 print(paste(winner, "win by", round(margin, 0) / 10, "points"))
-#Due to the scores of the NFC and AFC championship games we can predict the Superbowl
+#Due to the scores of the NFC and AFC championship games we can predict the Super Bowl
 Superbowl <- predict_team1 - predict_team3
 if (Superbowl > 0) { winner <- "Bills" ; margin <- Superbowl} else if (Superbowl < 0) { winner <- "Commanders" ; margin <- abs(Superbowl)}
-print(paste("The", winner, "win the Superbowl by", round(margin,0), "points"))
+print(paste("The", winner, "win the Super Bowl by", round(margin,0), "points"))
 
 
 
