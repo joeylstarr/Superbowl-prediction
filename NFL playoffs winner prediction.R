@@ -30,7 +30,8 @@ game <- data.frame(
   adjusted_pass_td_allowed = team_avg$average_adjusted_pass_td_allowed,
   adjusted_rush_yard_allowed = team_avg$average_adjusted_rush_yard_allowed,
   adjusted_rush_td_allowed = team_avg$average_adjusted_rush_td_allowed, average_ints = team_avg$average_ints,
-  team = team_avg$Team_games 
+  team = team_avg$Team_games
+  )
 #rename the passing_ints column to average_ints to allow for no errors in "game"
 game <- game %>%
   rename(passing_ints = average_ints)
