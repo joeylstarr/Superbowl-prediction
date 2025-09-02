@@ -17,7 +17,7 @@ nfl <- nfl %>% left_join(avg_opponent_rank, by = c("Team_games" = "Team_games"))
 #mutate new columns for adjusted rankings per team based on opponent ranks
 rank_adjusted <- nfl %>% mutate(across(c(points_for, points_allowed, passing__yards, passing_tds, rushing_yards, rushing_tds, pass_yard_allowed, pass_td_allowed, rush_yard_allowed, rush_td_allowed), ~ . * avg_opponent_rank, .names = "adjusted_{.col}"))
 #create a model for the adjusted points 
-model <- lm(adjusted_points_for ~ adjusted_passing__yards + adjusted_passing_tds + adjusted_rushing_yards + adjusted_rushing_tds - passing_ints - (adjusted_pass_yard_allowed + adjusted_pass_td_allowed + adjusted_rush_yard_allowed + adjusted_rush_td_allowed), data = rank_adjusted)
+model <- lm(adjusted_points_for ~ adjusted_passing__yards + adjusted_passing_tds + adjusted_rushing_yards + adjusted_rushing_tds + passing_ints + adjusted_pass_yard_allowed + adjusted_pass_td_allowed + adjusted_rush_yard_allowed + adjusted_rush_td_allowed), data = rank_adjusted)
 #team average which takes the average for each teams adjusted column
 team_avg <- rank_adjusted %>% group_by(Team_games) %>% summarise( average_adjusted_passing_yards = mean(adjusted_passing__yards, na.rm = TRUE) / 10, average_adjusted_passing_tds = mean(adjusted_passing_tds, na.rm = TRUE) / 10, average_adjusted_rushing_yards = mean(adjusted_rushing_yards, na.rm = TRUE) / 10, average_adjusted_rushing_tds = mean(adjusted_rushing_tds, na.rm = TRUE) / 10, average_adjusted_pass_yard_allowed = mean(adjusted_pass_yard_allowed, na.rm = TRUE) / 10, average_adjusted_pass_td_allowed = mean(adjusted_pass_td_allowed, na.rm = TRUE) / 10, average_adjusted_rush_yard_allowed = mean(adjusted_rush_yard_allowed, na.rm = TRUE) / 10, average_adjusted_rush_td_allowed = mean(adjusted_rush_td_allowed, na.rm = TRUE) / 10, average_ints = mean(passing_ints, na.rm = TRUE))
 #game shows us an individual game result based on averages
@@ -61,6 +61,7 @@ print(paste(winner, "win by", round(margin, 0) / 10, "points"))
 Superbowl <- predict_team1 - predict_team3
 if (Superbowl > 0) { winner <- "Bills" ; margin <- Superbowl} else if (Superbowl < 0) { winner <- "Commanders" ; margin <- abs(Superbowl)}
 print(paste("The", winner, "win the Super Bowl by", round(margin,0), "points"))
+
 
 
 
